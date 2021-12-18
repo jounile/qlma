@@ -1,0 +1,121 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.css" integrity="sha512-bYPO5jmStZ9WI2602V2zaivdAnbAhtfzmxnEGh9RwtlI00I9s8ulGe4oBa5XxiC6tCITJH/QG70jswBhbLkxPw==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700,800,300" type="text/css">
+
+    <!-- Custom stylesheets -->
+    <link rel="stylesheet" type="text/css" href="{% static 'main.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'calendar.css' %}">
+
+    <!-- Icons -->
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
+    <link rel="icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
+
+    <title>Qlma</title>
+
+</head>
+<body>
+    <header class="site-header">
+      <nav class="navbar navbar-expand-md navbar-dark bg-green fixed-top">
+        <div class="container">
+          <a class="navbar-brand mr-4" href="{% url 'news' %}"><img src="{% static 'qlma-logo.png' %}" class="logo" /></a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarToggle">
+            
+            <div class="navbar-nav mr-auto">
+              <!--
+              <a class="nav-item nav-link" href="{% url 'news' %}"><i class="fa fa-home" aria-hidden="true"></i>News</a>
+              <a class="nav-item nav-link" href="{% url 'about' %}">About</a>
+              -->
+            </div>
+            
+            <!-- Navbar Right Side  -->
+            <div class="navbar-nav">
+              <div id="pageLinksTop">
+                <a class="nav-item nav-link" href="{% url 'news' %}">News</a>
+                <a class="nav-item nav-link" href="{% url 'messaging:messages-received' %}">Messages</a>
+                <a class="nav-item nav-link" href="{% url 'timetable:timetable' %}">Timetable</a>
+                <a class="nav-item nav-link" href="{% url 'cal:calendar' %}">Calendar</a>
+                <a class="nav-item nav-link" href="{% url 'groups' %}">Groups</a>
+                <a class="nav-item nav-link" href="{% url 'polls:index' %}">Polls</a>
+                <a class="nav-item nav-link" href="{% url 'help' %}">Help</a>
+              </div>
+              {% if request.user.get_user_type_display == 'Teacher' or request.user.get_user_type_display == 'Admin' %}
+                <a class="nav-item nav-link" href="{% url 'staff' %}"><i class="fa fa-cog fa-inverse"></i>Staff</a>
+              {% endif %}
+              <a class="nav-item nav-link" href="{% url 'profile' %}"><i class="fa fa-user"></i>{{ request.user.username }}</a>
+              <a class="nav-item nav-link" href="{% url 'logout' %}"><i class="fa fa-key"></i>Logout</a>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <main role="main" class="container">
+      <div class="row page">
+        <div class="col-md-8">
+          {% if messages %}
+            {% for message in messages %}
+              {% if message.tags == 'error' %}
+                <div class="alert alert-danger">{{ message }}</div>
+              {% endif %}
+              {% if message.tags == 'success' %}
+                <div class="alert alert-success">{{ message }}</div>
+              {% endif %}
+            {% endfor %}
+          {% endif %}
+          {% block content %}{% endblock %}
+        </div>
+        <div class="col-md-4" id="pageLinksRight">
+          <div class="content-section">
+            <h3>Quick links</h3>
+            <p class='text-muted'>What are you looking for?
+              <ul class="list-group">
+                <li class="list-group-item list-group-item-light"><a class="nav-item nav-link" href="{% url 'news' %}"><i class="fa fa-home" aria-hidden="true"></i>News</a></li>
+                <li class="list-group-item list-group-item-light"><a class="nav-item nav-link" href="{% url 'messaging:messages-received' %}"><i class="fa fa-envelope-o" aria-hidden="true"></i>Messages</a></li>
+                <li class="list-group-item list-group-item-light"><a class="nav-item nav-link" href="{% url 'timetable:timetable' %}"><i class="fa fa-list-alt" aria-hidden="true"></i>Timetable</a></li>
+                <li class="list-group-item list-group-item-light"><a class="nav-item nav-link" href="{% url 'cal:calendar' %}"><i class="fa fa-calendar" aria-hidden="true"></i>Calendar</a></li>
+                <li class="list-group-item list-group-item-light"><a class="nav-item nav-link" href="{% url 'groups' %}"><i class="fa fa-users" aria-hidden="true"></i>Groups</a></li>
+                <li class="list-group-item list-group-item-light"><a class="nav-item nav-link" href="{% url 'polls:index' %}"><i class="fa fa-thumbs-up" aria-hidden="true"></i>Polls</a></li>
+                <li class="list-group-item list-group-item-light"><a class="nav-item nav-link" href="{% url 'lunch:index' %}"><i class="fa fa-cutlery" aria-hidden="true"></i>Lunch</a></li>
+                <li class="list-group-item list-group-item-light"><a class="nav-item nav-link" href="{% url 'help' %}"><i class="fa fa-info-circle" aria-hidden="true"></i>Help</a></li>
+              </ul>
+            </p>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- JavaScript -->
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js" integrity="sha512-AIOTidJAcHBH2G/oZv9viEGXRqDNmfdPVPYOYKGy3fti0xIplnlgMHUGfuNRzC6FkzIo0iIxgFnr9RikFxK+sw==" crossorigin="anonymous"></script>
+
+    <!-- include summernote css/js -->
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+
+    <!-- Custom scripts -->
+    <script src="{% static 'suggestivesearch.js' %}" type="application/javascript"></script>
+    <script src="{% static 'datepicker.js' %}" type="application/javascript"></script>
+    <script src="{% static 'poll.js' %}" type="application/javascript"></script>
+    <script src="{% static 'summernote.js' %}" type="application/javascript"></script>
+    <script src="{% static 'messaging-navi.js' %}" type="application/javascript"></script>
+</body>
+</html>

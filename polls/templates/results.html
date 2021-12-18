@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <h1>{{ question.question_text }}</h1>
+
+    {% for choice in question.choice_set.all %}
+        <h3>Choice: {{ choice.choice_text }} {{ choice.id }}</h3>
+
+        Votes: <br />
+        {% for vote in votes %}
+            {% if vote.choice.id == choice.id %}
+                <a href="{% url 'user' vote.voter %}">{{ vote.voter }}</a><br />
+            {% endif %}
+        {% endfor %}
+    {% endfor %}
+
+{% endblock content %}

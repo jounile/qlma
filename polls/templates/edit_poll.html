@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-12">
+            <!-- general form elements -->
+            <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">Edit Poll</h3>
+              </div>
+              <!-- /.card-header -->
+              <!-- form start -->
+              <form role="form" action="{% url 'polls:edit_poll' question_id=question.id %}" method="post">
+                {% csrf_token %}
+                <div class="card-body">
+                  <div class="form-group">
+                    <label>Question</label>
+                    <input type="text" class="form-control" name="question_text" value="{{ question.question_text }}" />
+                  </div>
+                  
+                  {% for choice in choices %}
+                  <div class="form-group">
+                    <label>Choice {{ forloop.counter }}</label>
+                    <input type="text" class="form-control" name="choice{{ choice.id }}" value="{{ choice.choice_text }}" />
+                  </div>
+                  {% endfor %}
+                  
+                  <!--
+                  <div class="form-group">
+                    <button id="add-choice" class="btn btn-secondary btn-block">Add choice</button>
+                  </div>
+                  -->
+                  
+                </div>
+                <!-- /.card-body -->
+
+                <div class="card-footer">
+                  <button type="submit" class="btn btn-primary btn-block">Save Poll</button>
+                </div>
+              </form>
+            </div>
+            <!-- /.card -->
+
+          </div>
+          </div>
+      </div>
+    </section>
+    <!-- /.content -->
+{% endblock content %}

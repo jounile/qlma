@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>{{ title }}</h1>
+    
+    <div class="col-lg-12">
+        <a href="{% url 'post-create' %}">
+            <div class="tile-button">
+                <h2><i class="fa fa-file-text"></i></h2>
+                Post news
+                <span></span>
+            </div>
+        </a>
+        <a href="{% url 'messaging:message-create' %}">
+            <div class="tile-button">
+                <h2><i class="fa fa-file-o"></i></h2>
+                Send message
+            </div>
+        </a>
+        <a href="{% url 'manage_users' %}">
+            <div class="tile-button">
+                <h2><i class="fa fa-file-o"></i></h2>
+                Manage users
+            </div>
+        </a>
+        <a href="{% url 'manage_groups' %}">
+            <div class="tile-button">
+                <h2><i class="fa fa-file-o"></i></h2>
+                Manage groups
+            </div>
+        </a>
+        <a href="{% url 'timetable:manage_courses' %}">
+            <div class="tile-button">
+                <h2><i class="fa fa-file-o"></i></h2>
+                Manage courses
+            </div>
+        </a>
+        <a href="{% url 'timetable:manage_subjects' %}">
+            <div class="tile-button">
+                <h2><i class="fa fa-file-o"></i></h2>
+                Manage subjects
+            </div>
+        </a>
+        <a href="{% url 'timetable:manage_lessons' %}">
+            <div class="tile-button">
+                <h2><i class="fa fa-file-o"></i></h2>
+                Manage lessons
+            </div>
+        </a>
+        <a href="{% url 'cal:manage_events' %}">
+            <div class="tile-button">
+                <h2><i class="fa fa-file-o"></i></h2>
+                Manage events
+            </div>
+        </a>
+        <a href="{% url 'polls:manage_polls' %}">
+            <div class="tile-button">
+                <h2><i class="fa fa-file-o"></i></h2>
+                Manage polls
+            </div>
+        </a>
+        <a href="{% url 'lunch:manage_lunches' %}">
+            <div class="tile-button">
+                <h2><i class="fa fa-file-o"></i></h2>
+                Manage lunches
+            </div>
+        </a>
+    </div>
+
+{% endblock content %}

@@ -1,0 +1,41 @@
+<div id="messaging-navi">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-item nav-link" href="{% url 'messaging:messages-received' %}">
+                        <div class="tile-button">
+                            <h2><i class="fa fa-file-text"></i></h2>
+                            INBOX
+                            <span>{{ unread_messages_count }}</span>
+                        </div>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-item nav-link" href="{% url 'messaging:message-create' %}">
+                        <div class="tile-button">
+                            <h2><i class="fa fa-file-o"></i></h2>
+                            NEW
+                        </div>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-item nav-link" href="{% url 'messaging:messages-sent' %}">
+                        <div class="tile-button">
+                            <h2><i class="fa fa-files-o"></i></h2>
+                            SENT
+                        </div>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-item nav-link" href="{% url 'messaging:messages-archived' %}">
+                        <div class="tile-button">
+                            <h2><i class="fa fa-files-o"></i></h2>
+                            Archived
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
